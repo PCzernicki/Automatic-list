@@ -20,7 +20,7 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 const String NO_MESSAGE_RECEIVED = "No message received from server";
 
-
+//metoda szablonowa w jezyku Arduino, która wykonuje się tylko raz podczas odpalenia
 void setup() {
   //LED
   pinMode(RED_LED, OUTPUT);
@@ -32,13 +32,13 @@ void setup() {
   lcd.begin(16, 2);
 
   initialState();
-   //inicjalizacja interfejsu SPI oraz modułu czytnika RFID
+//inicjalizacja interfejsu SPI oraz modułu czytnika RFID
   SPI.begin();
   mfrc522.PCD_Init();
 
 
 }
-
+//metoda szablonowa w jezyku Arduino, która wykonuje się w pętli cały czas
 void loop() {
   
   if(tagDetected()){
@@ -55,13 +55,13 @@ void loop() {
   }
   delay(1000);
 }
-
+//ustawienie stanu inicjalizacji
 void initialState(){
   lcdScreenDisplayText("Scan your tag");
-  ledsState(RED_LED,ON);
-  ledsState(GREEN_LED,OFF);
+  setLedState(RED_LED,ON);
+  setLedState(GREEN_LED,OFF);
 }
-
+//sprawdza czy pojawiła się nowa karta oraz odczytuje kod UID karty
  boolean tagDetected(){
     return mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial();
 }
@@ -69,13 +69,13 @@ void initialState(){
 
   void finalTask(String message){
     if(message != "Unauthorized" && message != NO_MESSAGE_RECEIVED){
-      ledsState(RED_LED,OFF);
-      ledsState(GREEN_LED,ON);
+      setLedState(RED_LED,OFF);
+      setLedState(GREEN_LED,ON);
     }
     lcdScreenDisplayText(message);
   }
-
-  void ledsState(int ledName, int state){
+//ustawia LED w odpowiedni stan
+  void setLedState(int ledName, int state){
     if(state == OFF){
         digitalWrite(ledName, LOW);
     } else{
@@ -83,20 +83,20 @@ void initialState(){
     }
 
   }
-
+//wyświetla na LCD dowolny tekst
   void lcdScreenDisplayText(String message){
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print(message);
   }
-
+//uruchamia beeper na odpowiednią długość
   void beeperOn(int beepLength_ms){
     digitalWrite(BUZZER, HIGH);
     delay(beepLength_ms);
     digitalWrite(BUZZER, LOW);
 
   }
-
+//wysyła odczytane z karty na port szeregowy
   void sendDataToServer(){
         for (byte i = 0; i < mfrc522.uid.size; i++) {
           Serial.print(mfrc522.uid.uidByte[i], HEX);
@@ -104,7 +104,7 @@ void initialState(){
         delay(500); // Delay to avoid continuous reading
       }
 
-
+//odczytuje informacje wyslane na port szeregowy
   String receiveStringFromServer(){
     delay(2000); // time required to retrieve data from server if exist
     if(Serial.available() > 0){
