@@ -1,2 +1,2 @@
 - port szeregowy może jednocześnie obsługiwac jedno urządzenie
-- 
+- ![20240301_203639.jpg](..%2F..%2F..%2F..%2F20240301_203639.jpg)

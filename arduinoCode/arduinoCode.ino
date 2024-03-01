@@ -2,9 +2,8 @@
 #include <SPI.h>
 #include <MFRC522.h>
 
+//PRZYPISANIE PINÓW DO MODUŁÓW NA PŁYTCE Arduino
 //LED
-const int ON = 1;
-const int OFF = 0;
 #define RED_LED A1
 #define GREEN_LED A0
 //RFID
@@ -13,14 +12,19 @@ const int OFF = 0;
 //buzzer
 #define BUZZER A2
 
+//ZDEFINOWANIE STOSOWANYCH STAŁYCH
+const String NO_MESSAGE_RECEIVED = "No message received from server";
+const int ON = 1;
+const int OFF = 0;
+
+//stworzenie konstruktora dla obiektów lcd oraz czytnika RFID
 //LCD 1602 instance
 LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
 //RFID RC522 instance
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
-const String NO_MESSAGE_RECEIVED = "No message received from server";
 
-//metoda szablonowa w jezyku Arduino, która wykonuje się tylko raz podczas odpalenia
+//metoda obowiązkowa w jezyku Arduino, która wykonuje się tylko raz podczas odpalenia
 void setup() {
   //LED
   pinMode(RED_LED, OUTPUT);
@@ -35,10 +39,9 @@ void setup() {
 //inicjalizacja interfejsu SPI oraz modułu czytnika RFID
   SPI.begin();
   mfrc522.PCD_Init();
-
-
 }
-//metoda szablonowa w jezyku Arduino, która wykonuje się w pętli cały czas
+
+//metoda obowiązkowa w jezyku Arduino, która wykonuje się w pętli cały czas
 void loop() {
   
   if(tagDetected()){
@@ -74,6 +77,8 @@ void initialState(){
     }
     lcdScreenDisplayText(message);
   }
+
+
 //ustawia LED w odpowiedni stan
   void setLedState(int ledName, int state){
     if(state == OFF){
