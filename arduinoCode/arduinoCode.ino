@@ -3,8 +3,8 @@
 #include <MFRC522.h>
 
 //LED
-int ON = 1;
-int OFF = 0;
+const int ON = 1;
+const int OFF = 0;
 #define RED_LED A1
 #define GREEN_LED A0
 //RFID
@@ -18,7 +18,7 @@ LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
 //RFID RC522 instance
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
-String const NO_MESSAGE_RECEIVED = "No message received from server";
+const String NO_MESSAGE_RECEIVED = "No message received from server";
 
 
 void setup() {
@@ -28,13 +28,11 @@ void setup() {
   //buzzer
   pinMode(BUZZER, OUTPUT);
 
-
-
   Serial.begin(9600);
   lcd.begin(16, 2);
 
   initialState();
-
+   //inicjalizacja interfejsu SPI oraz modułu czytnika RFID
   SPI.begin();
   mfrc522.PCD_Init();
 
@@ -45,7 +43,7 @@ void loop() {
   
   if(tagDetected()){
     beeperOn(1000);
-    lcdScreenInfo("Authorizing...");
+    lcdScreenDisplayText("Authorizing...");
     delay(1000);
     sendDataToServer();
     String screenText = receiveStringFromServer();
@@ -59,7 +57,7 @@ void loop() {
 }
 
 void initialState(){
-  lcdScreenInfo("Scan your tag");
+  lcdScreenDisplayText("Scan your tag");
   ledsState(RED_LED,ON);
   ledsState(GREEN_LED,OFF);
 }
@@ -74,7 +72,7 @@ void initialState(){
       ledsState(RED_LED,OFF);
       ledsState(GREEN_LED,ON);
     }
-    lcdScreenInfo(message);
+    lcdScreenDisplayText(message);
   }
 
   void ledsState(int ledName, int state){
@@ -86,7 +84,7 @@ void initialState(){
 
   }
 
-  void lcdScreenInfo(String message){
+  void lcdScreenDisplayText(String message){
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print(message);

@@ -1,0 +1,2 @@
+- port szeregowy może jednocześnie obsługiwac jedno urządzenie
+- 
