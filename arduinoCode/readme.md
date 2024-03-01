@@ -1,5 +1,4 @@
-
-- ![20240301_203639.jpg](..%2F..%2F..%2F..%2F20240301_203639.jpg)
+![Opis zdjęcia](20240301_203639.jpg)
 
 <h3><strong>Schemat działania:</strong></h3>
 1. moduł został uruchomiony
