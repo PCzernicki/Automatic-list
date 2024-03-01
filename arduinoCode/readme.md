@@ -1,4 +1,4 @@
-![Opis zdjęcia](20240301_203639.jpg)
+![Opis zdjęcia](20240301_203639.jpg){: width="50%"}
 
 ### Schemat działania:
 
