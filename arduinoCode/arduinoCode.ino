@@ -17,27 +17,25 @@ const String NO_MESSAGE_RECEIVED = "No message received from server";
 const int ON = 1;
 const int OFF = 0;
 
-//stworzenie konstruktora dla obiektów lcd oraz czytnika RFID
-//LCD 1602 instance
-LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
-//RFID RC522 instance
-MFRC522 mfrc522(SS_PIN, RST_PIN);
+//stworzenie konstruktora dla obiektów lcd oraz czytnika RFID mfrc522
+LiquidCrystal lcd(2, 3, 4, 5, 6, 7);    //LCD 1602 instance
+MFRC522 mfrc522(SS_PIN, RST_PIN);   //RFID RC522 instance
 
 
 //metoda obowiązkowa w jezyku Arduino, która wykonuje się tylko raz podczas odpalenia
 void setup() {
   //LED
-  pinMode(RED_LED, OUTPUT);
+  pinMode(RED_LED, OUTPUT);     //inijalizacja ledów
   pinMode(GREEN_LED, OUTPUT);
   //buzzer
-  pinMode(BUZZER, OUTPUT);
+  pinMode(BUZZER, OUTPUT);      //inicjalizacja buzzera
 
-  Serial.begin(9600);
-  lcd.begin(16, 2);
+  Serial.begin(9600);           //inicjalizacja portu szeregowego
+  lcd.begin(16, 2);             //inicjalizacja ekranu LCD
 
-  initialState();
-//inicjalizacja interfejsu SPI oraz modułu czytnika RFID
-  SPI.begin();
+  initialState();               //inicjalizacja stanu pierwotnego
+
+  SPI.begin();                  //inicjalizacja interfejsu SPI oraz modułu czytnika RFID
   mfrc522.PCD_Init();
 }
 
@@ -111,7 +109,7 @@ void initialState(){
 
 //odczytuje informacje wyslane na port szeregowy
   String receiveStringFromServer(){
-    delay(2000); // time required to retrieve data from server if exist
+    delay(2000); // time required to retrieve data from server if any exists
     if(Serial.available() > 0){
         return Serial.readStringUntil('\n');
     }
