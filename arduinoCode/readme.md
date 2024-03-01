@@ -1,4 +1,4 @@
-![Opis zdjęcia](20240301_203639.jpg){: width="50%"}
+<img src="20240301_203639.jpg" width="50%" height="auto">
 
 ### Schemat działania:
 
