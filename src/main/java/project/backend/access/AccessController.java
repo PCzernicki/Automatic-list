@@ -17,6 +17,7 @@ public class AccessController {
     @GetMapping("/{gateId}/")
     public AccessResponse logAccess(@RequestParam String uid, @PathVariable Integer gateId){
         return accessService.logAccess(uid, gateId);
+
     }
 
     @GetMapping("/{gateId}/lastLogInfo/")
